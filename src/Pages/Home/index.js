@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 function App() {
   const [date, setDate] = useState("");
   const [contacaoVenda, setContacaoVenda] = useState("");
-  const [contacaoCompra, setContacaoCompra] = useState("");
+  const [ contacaoCompra, setContacaoCompra ] = useState("");
+  
   const ultimaDataConsultada = localStorage.getItem("ultimaData");
 
   function solicitar_cotacao(chave, date) {
@@ -28,9 +29,11 @@ function App() {
           }
         )
         .then((response) => {
-          const cotacaoNestData = response.data;
-          setContacaoVenda(cotacaoNestData.value[0].cotacaoVenda);
-          setContacaoCompra(cotacaoNestData.value[0].cotacaoCompra);
+          if(response){
+            const cotacaoNestData = response.data;
+            setContacaoVenda(cotacaoNestData.value[0].cotacaoVenda);
+            setContacaoCompra(cotacaoNestData.value[0].cotacaoCompra);
+          }
         });
     }
   }, [ultimaDataConsultada]);
