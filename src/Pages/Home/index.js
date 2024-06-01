@@ -1,5 +1,4 @@
 import "./Home.css";
-import dolar from "../../images/dolar.png";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -60,9 +59,6 @@ function App() {
             </div>
           </div>
           <form>
-            <span>
-              <img className="imagemDolar" src={dolar} />
-            </span>
             <div className="dataCotacao">
               <input
                 id="date"
