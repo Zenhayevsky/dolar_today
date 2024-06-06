@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 function App() {
   const [date, setDate] = useState("");
   const [contacaoVenda, setContacaoVenda] = useState("");
-  const [ contacaoCompra, setContacaoCompra ] = useState("");
-  
+  const [contacaoCompra, setContacaoCompra] = useState("");
+
   const ultimaDataConsultada = localStorage.getItem("ultimaData");
 
   function solicitar_cotacao(chave, date) {
@@ -29,7 +29,7 @@ function App() {
           }
         )
         .then((response) => {
-          if(response){
+          if (response) {
             const cotacaoNestData = response.data;
             setContacaoVenda(cotacaoNestData.value[0].cotacaoVenda);
             setContacaoCompra(cotacaoNestData.value[0].cotacaoCompra);
@@ -39,7 +39,7 @@ function App() {
   }, [ultimaDataConsultada]);
 
   return (
-    <>
+    <div id="page">
       <div className="App">
         <div class="header">
           <nav class="menu">
@@ -48,65 +48,78 @@ function App() {
         </div>
       </div>
 
-      <header className="App-header">
-        <body className="App-header">
-          <div>
-            <span>Qual data gostaria de consultar a Cotação de hoje?</span>{" "}
-            <br />
-            <div className="aviso">
-              <span>
-                {" "}
-                Por favor, certifique-se que a data inserida seja a do dia de
-                hoje ou dias anteriores
-              </span>
+      <body className="App-header">
+        <div>
+          <span className="title">
+            Which date would you like to consult today's quote?
+          </span>{" "}
+          <br />
+          <div className="aviso">
+            <span>
+              {" "}
+              Please make sure the date entered is today or the previous day
+            </span>
+          </div>
+        </div>
+        <form>
+          <div className="dataCotacao">
+            <input
+              id="date"
+              type="date"
+              name="data-inserida"
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div className="btn">
+            <input
+              id="btn-submit"
+              onClick={() => solicitar_cotacao("ultimaData", date)}
+              name="btn"
+              type="submit"
+              value="Consultar"
+            ></input>
+          </div>
+        </form>
+        <div className="restults">
+          <div className="consulta">
+            <span>Chosen date</span>
+            <div className="infoData">
+              <label>year-month-day</label>
+            </div>
+            <div>
+              <label>{ultimaDataConsultada}</label>
             </div>
           </div>
-          <form>
-            <div className="dataCotacao">
-              <input
-                id="date"
-                type="date"
-                name="data-inserida"
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
-            <div className="btn">
-              <input
-                id="btn-submit"
-                onClick={() => solicitar_cotacao("ultimaData", date)}
-                name="btn"
-                type="submit"
-                value="Consultar"
-              ></input>
-            </div>
-          </form>
-          <div className="resultados">
-            <div className="consulta">
-              <span>Data consultada</span>
-              <div className="infoData">
-                <label>ano-mes-dia</label>
-              </div>
-              <div>
-                <label>{ultimaDataConsultada}</label>
-              </div>
-            </div>
-            <div className="consulta">
-              <span>Cotação de Compra</span>
-              <div>
-                <label>R$ {contacaoCompra}</label>
-              </div>
-            </div>
-            <div className="consulta">
-              <span>Cotação de Venda</span>
-              <div>
-                {" "}
-                <label>R$ {contacaoVenda}</label>
-              </div>
+          <div className="consulta">
+            <span>Purchase Quotation</span>
+            <div>
+              <label>R$ {contacaoCompra}</label>
             </div>
           </div>
-        </body>
-      </header>
-    </>
+          <div className="consulta">
+            <span>Sales Quotation</span>
+            <div>
+              <label>R$ {contacaoVenda}</label>
+            </div>
+          </div>
+        </div>
+        <div className="aviso">
+          <span>
+            Price of 1 US dollar in Brazilian
+            reais
+          </span>
+        </div>
+      </body>
+
+      <div className="footer">
+        <div class="footerStruct">
+          <hr />
+          <nav class="copyright">
+            <span> © 2024 Zenitha serviços de informática LTDA. All rights reserved. </span>
+          </nav>
+        </div>
+      </div>
+    </ div>
   );
 }
 
