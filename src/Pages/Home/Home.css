@@ -9,7 +9,7 @@
 }
 
 
-.App-header {
+.App-body {
   background-color: #D3D3D3;
   display: flex;
   flex-direction: column;
@@ -148,3 +148,54 @@ form {
   font-size: 13px;
   color: #1b4272;
 }
+
+@media only screen and (max-device-width: 500px) {
+  .App-body {
+    background-color: #D3D3D3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: calc(10px + 1vmin);
+    color: #556B2F;
+    text-align: center;
+    padding-top: 4%;
+    height: 650px;
+  }
+}
+
+/* @media only screen and (max-device-width: 844px) {
+  .App-body {
+    height: 650px;
+    background-color: #D3D3D3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: calc(10px + 1vmin);
+    color: #556B2F;
+    text-align: center;
+    padding-top: 4%;
+  }
+
+  .title {
+    font-size:20px;
+  }
+
+  .aviso {
+    font-size: 10px;
+    color:#052853;
+    font-weight: bold;
+  }
+
+  .consulta { 
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-device-width: 650px) {
+  .copyright {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 13px;
+    color: red;
+  }
+} */

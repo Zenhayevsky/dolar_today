@@ -48,7 +48,7 @@ function App() {
         </div>
       </div>
 
-      <body className="App-header">
+      <body className="App-body">
         <div>
           <span className="title">
             Which date would you like to consult today's quote?
