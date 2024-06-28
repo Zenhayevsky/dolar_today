@@ -1,21 +1,48 @@
 import "./Home.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import React from "react";
+import Modal from "react-modal";
 
 function App() {
   const [date, setDate] = useState("");
   const [contacaoVenda, setContacaoVenda] = useState("");
   const [contacaoCompra, setContacaoCompra] = useState("");
 
-  const ultimaDataConsultada = localStorage.getItem("ultimaData");
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "20px",
+    },
+  };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   function solicitar_cotacao(chave, date) {
     localStorage.setItem(chave, date);
   }
 
   useEffect(() => {
-    if (ultimaDataConsultada) {
-      const arrayData = ultimaDataConsultada.split("-");
+    if (date) {
+      const arrayData = date.split("-");
       const dataFormatada =
         arrayData[1] + "-" + arrayData[2] + "-" + arrayData[0];
       axios
@@ -36,7 +63,7 @@ function App() {
           }
         });
     }
-  }, [ultimaDataConsultada]);
+  }, [date]);
 
   return (
     <div id="page">
@@ -50,9 +77,7 @@ function App() {
 
       <body className="App-body">
         <div>
-          <span className="title">
-            Which date would you like to consult today's quote?
-          </span>{" "}
+          <span className="title">Which date would you like to consult?</span>{" "}
           <br />
           <div className="aviso">
             <span>
@@ -70,15 +95,6 @@ function App() {
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
-          <div className="btn">
-            <input
-              id="btn-submit"
-              onClick={() => solicitar_cotacao("ultimaData", date)}
-              name="btn"
-              type="submit"
-              value="Consultar"
-            ></input>
-          </div>
         </form>
         <div className="restults">
           <div className="consulta">
@@ -87,7 +103,7 @@ function App() {
               <label>year-month-day</label>
             </div>
             <div>
-              <label>{ultimaDataConsultada}</label>
+              <label>{date}</label>
             </div>
           </div>
           <div className="consulta">
@@ -104,10 +120,7 @@ function App() {
           </div>
         </div>
         <div className="aviso">
-          <span>
-            Price of 1 US dollar in Brazilian
-            reais
-          </span>
+          <span>Price of 1 US dollar in Brazilian reais</span>
         </div>
       </body>
 
@@ -115,11 +128,28 @@ function App() {
         <div class="footerStruct">
           <hr />
           <nav class="copyright">
-            <span> © 2024 Zenitha serviços de informática LTDA. All rights reserved. </span>
+            <span>
+              {" "}
+              © 2024 Zenitha serviços de informática LTDA. All rights reserved.{" "}
+            </span>
           </nav>
         </div>
       </div>
-    </ div>
+      <div>
+        <button onClick={openModal}>Open Modal</button>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Wrong date Modal"
+        >
+          <h2 ref={(_subtitle) => (subtitle = _subtitle)}> Invalid date </h2>
+          <div>Please choose the date today or before it.</div>
+          <button className="CloseModal" onClick={closeModal}>OK</button>
+        </Modal>
+      </div>
+    </div>
   );
 }
 
