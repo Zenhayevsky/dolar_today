@@ -36,10 +36,6 @@ function App() {
     setIsOpen(false);
   }
 
-  function solicitar_cotacao(chave, date) {
-    localStorage.setItem(chave, date);
-  }
-
   useEffect(() => {
     if (date) {
       const arrayData = date.split("-");
@@ -61,6 +57,9 @@ function App() {
             setContacaoVenda(cotacaoNestData.value[0].cotacaoVenda);
             setContacaoCompra(cotacaoNestData.value[0].cotacaoCompra);
           }
+        })
+        .catch(function (error) {
+          console.log("Please, choose a date that is the same as today or earlier");
         });
     }
   }, [date]);
@@ -146,7 +145,9 @@ function App() {
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}> Invalid date </h2>
           <div>Please choose the date today or before it.</div>
-          <button className="CloseModal" onClick={closeModal}>OK</button>
+          <button className="CloseModal" onClick={closeModal}>
+            OK
+          </button>
         </Modal>
       </div>
     </div>
