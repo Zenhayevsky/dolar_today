@@ -8,9 +8,9 @@ function App() {
   const [date, setDate] = useState("");
   const [contacaoVenda, setContacaoVenda] = useState("");
   const [contacaoCompra, setContacaoCompra] = useState("");
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const customStyles = {
     content: {
@@ -23,18 +23,6 @@ function App() {
       borderRadius: "20px",
     },
   };
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    subtitle.style.color = "#f00";
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   useEffect(() => {
     if (date) {
@@ -60,6 +48,7 @@ function App() {
         })
         .catch(function (error) {
           console.log("Please, choose a date that is the same as today or earlier");
+          setIsOpen(true);
         });
     }
   }, [date]);
@@ -135,17 +124,15 @@ function App() {
         </div>
       </div>
       <div>
-        <button onClick={openModal}>Open Modal</button>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
+          onRequestClose={() => setIsOpen(false)}
           style={customStyles}
           contentLabel="Wrong date Modal"
         >
           <h2 ref={(_subtitle) => (subtitle = _subtitle)}> Invalid date </h2>
           <div>Please choose the date today or before it.</div>
-          <button className="CloseModal" onClick={closeModal}>
+          <button className="CloseModal" onClick={() => setIsOpen(false)}>
             OK
           </button>
         </Modal>
