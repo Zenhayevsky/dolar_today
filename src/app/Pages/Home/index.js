@@ -24,6 +24,10 @@ function App() {
     },
   };
 
+  function afterOpenModal() {
+    subtitle.style.color = "#f00";
+  }
+
   useEffect(() => {
     if (date) {
       const arrayData = date.split("-");
@@ -126,6 +130,7 @@ function App() {
       <div>
         <Modal
           isOpen={modalIsOpen}
+          onAfterOpen={() => subtitle.style.color = "#f00"}
           onRequestClose={() => setIsOpen(false)}
           style={customStyles}
           contentLabel="Wrong date Modal"
